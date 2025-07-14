@@ -27,12 +27,12 @@ func main() {
 		return
 	}
 
-	email := os.Getenv("CLOUDFLARE_EMAIL")
+	email := "cloudflare-demo-1@ondrejsikamail.com"
 	apiKey := os.Getenv("CLOUDFLARE_API_KEY")
-	accountID := "3d7bdb59b6b0972641e6dc9c2b2b9ade"
-	zone1 := "3ba5d048f4d88833ae1e2638ad57ee64" // sikademo1.uk
-	zone2 := "dd0036cc8abdf8d12eb9a8cc150d9f08" // sikademo2.uk
-	zone3 := "db23d39fbe9feaf207f0007680022fbc" // sikademo3.uk
+	accountID := "3d7bdb59b6b0972641e6dc9c2b2b9ade" // cloudflare-demo-1@ondrejsikamail.com account
+	zone1 := "3ba5d048f4d88833ae1e2638ad57ee64"     // sikademo1.uk zone
+	zone2 := "dd0036cc8abdf8d12eb9a8cc150d9f08"     // sikademo2.uk zone
+	zone3 := "db23d39fbe9feaf207f0007680022fbc"     // sikademo3.uk zone
 
 	err = deleteAllTunnels(email, apiKey, accountID)
 	handleErrorFatal(err)
