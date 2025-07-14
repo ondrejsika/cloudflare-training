@@ -97,6 +97,7 @@ func deleteAllTunnels(email, apiKey, accountID string) error {
 
 	page, err := client.ZeroTrust.Tunnels.List(context.TODO(), zero_trust.TunnelListParams{
 		AccountID: cloudflare.F(accountID),
+		IsDeleted: cloudflare.F(false), // Only list active tunnels
 	})
 	if err != nil {
 		return fmt.Errorf("failed to list tunnels: %w", err)
