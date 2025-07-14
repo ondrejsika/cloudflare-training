@@ -1,8 +1,35 @@
-# General
-.env
-
 # Mac
 .DS_Store
 
 # Editor
 .vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Generic
+*.log
+*.backup
+*.local.sh
+*.local.yml
+*.local.yaml
+*.local.json
+*.local.txt
+.env
+
+# Terraform
+.terraform
+*.tfplan
+*.tfstate
+.terraform.tfstate.lock.info
+*.tfvars
+!*.EXAMPLE.tfvars
+override.tf
+
+# Terragrunt
+.terragrunt-cache
+
+# Infracost
+.infracost
+.infracost-reports
