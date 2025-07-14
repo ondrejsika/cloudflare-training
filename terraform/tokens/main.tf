@@ -14,6 +14,9 @@ resource "cloudflare_api_token" "example_api_token" {
     ]
     resources = {
       "com.cloudflare.api.account.${local.account_id}"                = "*"
+      "com.cloudflare.api.account.zone.${local.sikademo1_uk_zone_id}" = "*"
+      "com.cloudflare.api.account.zone.${local.sikademo2_uk_zone_id}" = "*"
+      "com.cloudflare.api.account.zone.${local.sikademo3_uk_zone_id}" = "*"
       "com.cloudflare.api.account.zone.${local.sikademo4_uk_zone_id}" = "*"
     }
   }]
