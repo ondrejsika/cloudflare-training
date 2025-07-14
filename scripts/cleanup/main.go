@@ -43,6 +43,9 @@ func main() {
 	err = deleteAllTunnels(email, apiKey, accountID)
 	handleErrorFatal(err)
 
+	err = deleteAllZeroTrustApplications(email, apiKey, accountID)
+	handleErrorFatal(err)
+
 	for _, zone := range []string{zone1, zone2, zone3} {
 		err = deleteAllDnsRecords(email, apiKey, zone)
 		handleErrorFatal(err)
@@ -114,6 +117,38 @@ func deleteAllTunnels(email, apiKey, accountID string) error {
 		)
 		if err != nil {
 			return fmt.Errorf("failed to delete tunnel %s: %w", tunnel.Name, err)
+		}
+	}
+
+	return nil
+}
+
+func deleteAllZeroTrustApplications(email, apiKey, accountID string) error {
+	var err error
+
+	client := cloudflare.NewClient(
+		option.WithAPIEmail(email),
+		option.WithAPIKey(apiKey),
+	)
+
+	page, err := client.ZeroTrust.Access.Applications.List(context.TODO(), zero_trust.AccessApplicationListParams{
+		AccountID: cloudflare.F(accountID),
+	})
+	if err != nil {
+		return fmt.Errorf("failed to list zero trust applications: %w", err)
+	}
+
+	for _, application := range page.Result {
+		fmt.Println("Deleting zero trust application:", application.Name)
+		_, err = client.ZeroTrust.Access.Applications.Delete(
+			context.TODO(),
+			application.ID,
+			zero_trust.AccessApplicationDeleteParams{
+				AccountID: cloudflare.F(accountID),
+			},
+		)
+		if err != nil {
+			return fmt.Errorf("failed to delete application %s: %w", application.Name, err)
 		}
 	}
 
