@@ -18,10 +18,6 @@ variable "name" {
   type = string
 }
 
-variable "dns_record_name" {
-  type = string
-}
-
 variable "tunnel_secret" {
   type = string
 }
@@ -40,6 +36,7 @@ resource "cloudflare_zero_trust_tunnel_cloudflared" "this" {
 resource "cloudflare_zero_trust_tunnel_cloudflared_config" "this" {
   account_id = var.account_id
   tunnel_id  = cloudflare_zero_trust_tunnel_cloudflared.this.id
+  source     = "cloudflare"
   config = {
     ingress = [
       {
@@ -49,12 +46,15 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "this" {
     origin_request = {
       no_tls_verify = true
     }
+    warp_routing = {
+      enabled = false
+    }
   }
 }
 
 resource "cloudflare_dns_record" "this" {
   zone_id = var.zone_id
-  name    = var.dns_record_name
+  name    = var.name
   content = "${cloudflare_zero_trust_tunnel_cloudflared.this.id}.cfargotunnel.com"
   type    = "CNAME"
   proxied = true
