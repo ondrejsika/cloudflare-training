@@ -7,7 +7,7 @@ resource "random_string" "access_tunnel_example_tunnel_secret" {
 }
 
 module "access_tunnel_example" {
-  source = "./modules/simple_cloudflare_tunnel"
+  source = "../modules/simple_cloudflare_tunnel"
 
   account_id    = local.account_id
   zone_id       = local.sikademo4_uk_zone_id
@@ -22,7 +22,7 @@ output "access_tunnel_example" {
 }
 
 module "access" {
-  source = "./modules/simple_cloudflare_access"
+  source = "../modules/simple_cloudflare_access"
 
   account_id = local.account_id
   zone_id    = local.sikademo4_uk_zone_id

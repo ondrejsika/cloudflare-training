@@ -7,7 +7,7 @@ resource "random_string" "public_tunnel_example_tunnel_secret" {
 }
 
 module "public_tunnel_example" {
-  source = "./modules/simple_cloudflare_tunnel"
+  source = "../modules/simple_cloudflare_tunnel"
 
   account_id    = local.account_id
   zone_id       = local.sikademo4_uk_zone_id
